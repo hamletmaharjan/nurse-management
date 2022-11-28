@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 
 import {fetchNurse, deleteNurse} from '../../services/nurseService';
 import {getUserInfo} from '../../services/authService';
-import URLS from '../../constants/urls';
 
 function NurseDetail() {   
   let { id } = useParams(); 

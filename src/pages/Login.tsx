@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-// import { connect } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
 
-// import { login } from '../actions/authAction';
 import {login} from '../services/userService';
 import {setAccessToken} from '../services/authService';
 
@@ -24,7 +22,6 @@ function Login (props:any){
 				setPassword(val);
 				break;
 			default:
-				console.log('crp');
 				break;
 		}
 	}
@@ -33,15 +30,12 @@ function Login (props:any){
 		e.preventDefault();
 		login({email: email, password: password})
 		.then((response) => {
-      // console.log(response);
-      // return;
       setAccessToken(response.token);
 			let userInfo = {
 				id: response.id,
 				email: response.email
 			}
 			localStorage.setItem('user', JSON.stringify(userInfo));
-			// props.login(response);
 			navigate('/');
 		})
 		.catch(function (error) {
@@ -94,18 +88,5 @@ function Login (props:any){
      
 	)
 }
-
-
-// const mapStateToProps = (state) => {
-// 	return {
-// 	  authState: state
-// 	}
-// }
-  
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     login: (auth) => dispatch(login(auth))
-//   }
-// }
 
 export default Login;

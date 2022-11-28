@@ -27,7 +27,6 @@ function Home() {
     fetchNurses()
     .then(data=> {
         setNurses(data);
-        // console.log('test', data, nurses);
     })
   },[]);
     return ( 

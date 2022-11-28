@@ -38,29 +38,9 @@ function CreateNurseForm() {
     setInputs(values => ({...values, [name]: value}))
   }
 
-	// const handleChange = (event:any) => {
-	// 	let name = event.target.name;
-  //   let val = event.target.value;
-	// 	switch(name) {
-	// 		case 'name':
-	// 			setTitle(val);
-	// 			break;
-	// 		case 'email':
-	// 			setEmail(val);
-	// 			break;
-  //     case 'image':
-  //       setImage(event.target.files[0]);
-  //       break;
-	// 		default:
-	// 			console.log('invalid');
-	// 			break;
-	// 	}
-	// }
-
 	const handleSubmit = (e:any)=> {
 		e.preventDefault();
 
-    console.log('data', inputs, image);
     const formData = new FormData();
     formData.append('full_name', inputs.full_name || '');
     formData.append('email', inputs.email || '');
@@ -75,7 +55,6 @@ function CreateNurseForm() {
 
     createNurse(formData)
     .then(function (response:any) {
-      console.log('res', response);
       navigate('/');
     })
     .catch(function (error:any) {

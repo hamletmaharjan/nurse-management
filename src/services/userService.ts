@@ -1,5 +1,4 @@
 import * as http from "../utils/http";
-// import * as authService from "./auth";
 
 export const signup = (payload:any) => {
   return http.post("auth/signup", { body: payload });
