@@ -1,7 +1,8 @@
-import {useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useState, useEffect } from 'react';
+import { useReducer } from "react";
+import { useNavigate, useParams } from 'react-router-dom';
 
-import {createNurse} from '../../services/nurseService';
+import {updateNurse, fetchNurse} from '../../services/nurseService';
 
 interface Nurse { 
   full_name?:string, 
@@ -16,26 +17,52 @@ interface Nurse {
   id?:number,
 }
 
-function CreateNurseForm() {
+const initialNurseState = {
+  full_name:'', 
+  contact:'', 
+  working_days: '',
+  start_time: '',
+  end_time: '', 
+  address: '',
+  email: '',
+}
+
+function reducer(state:any, {field,value}:any) {
+  return {
+    ...state,
+    [field]: value
+  }
+}
+
+function EditNurseForm({nurse}:any) {
   let navigate = useNavigate();
-  // const [name, setTitle] = useState('');
-  // const [contact, setContact] = useState('');
-	// const [email, setEmail] = useState('');
-  // const [startTime, setStartTime] = useState('');
-  // const [endTime, setEndTime] = useState('');
-  // const [workingDays, setWorkingDays] = useState('');
-  // const [address, setAddress] = useState('');
+
   const [image, setImage] = useState<any>(null);
   const [inputs, setInputs] = useState<Nurse>({});
 
+  const [state, dispatch] = useReducer(reducer, initialNurseState);
+
+  let { id }:any = useParams(); 
+
+  useEffect(() => {
+    fetchNurse(id)
+    .then(data=> {
+        // setInputs(data.data);
+        dispatch(data.data);
+    })
+
+    console.log('inputs', inputs)
+  },[id]);
+
   const handleChange = (event:any) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    if(name==="image") {
-      setImage(event.target.files[0]);
-      return;
-    }
-    setInputs(values => ({...values, [name]: value}))
+    dispatch({field: event.target.name, value:event.target.value});
+    // const name = event.target.name;
+    // const value = event.target.value;
+    // if(name==="image") {
+    //   setImage(event.target.files[0]);
+    //   return;
+    // }
+    // setInputs(values => ({...values, [name]: value}))
   }
 
 	// const handleChange = (event:any) => {
@@ -73,7 +100,7 @@ function CreateNurseForm() {
       formData.append('image', image, image.name);
     }
 
-    createNurse(formData)
+    updateNurse(id,formData)
     .then(function (response:any) {
       console.log('res', response);
       navigate('/');
@@ -89,7 +116,7 @@ function CreateNurseForm() {
       <form  onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Name</label>
-          <input type="text" className="form-control" name="full_name" placeholder="Name" onChange={handleChange} required/>
+          <input type="text" className="form-control" name="full_name" value={state.full_name} placeholder="Name" onChange={handleChange} required/>
         </div>
       
         <div className="form-group">
@@ -127,10 +154,10 @@ function CreateNurseForm() {
           <input type="file" className="custom-file-input" name="image" onChange={handleChange} />
           
         </div>
-        <input type="submit" style={{marginTop: 15}} className="btn btn-primary" value="Create" />
+        <input type="submit" style={{marginTop: 15}} className="btn btn-primary" value="Update" />
       </form>
     </div>
   )
 }
 
-export default CreateNurseForm;
+export default EditNurseForm;

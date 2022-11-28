@@ -1,5 +1,5 @@
 import axios from 'axios';
-// import * as authService from "../services/auth";
+import * as authService from "../services/authService";
 
 const baseURL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000';
 
@@ -9,10 +9,10 @@ const instance = axios.create({
 });
 
 export const get = (url: string, { params = {}, accessToken =  true, headers = {} } = {}) => {
-  const authHeaders = {};
-//   if (accessToken) {
-//     authHeaders.Authorization = authService.getAccessToken();
-//   }
+  const authHeaders:any = {};
+  if (accessToken) {
+    authHeaders.Authorization = authService.getAccessToken();
+  }
   return instance({
     url,
     params,
@@ -23,10 +23,10 @@ export const get = (url: string, { params = {}, accessToken =  true, headers = {
 
 
 export const post = (url:string, { params = {}, body = {}, accessToken = true, headers = {} } = {}) => {
-  const authHeaders = {};
-//   if (accessToken) {
-//     authHeaders.Authorization = authService.getAccessToken();
-//   }
+  const authHeaders:any = {};
+  if (accessToken) {
+    authHeaders.Authorization = authService.getAccessToken();
+  }
   return instance({
     url,
     params,
@@ -37,10 +37,10 @@ export const post = (url:string, { params = {}, body = {}, accessToken = true, h
 };
 
 export const put = (url: string, { params = {}, body = {}, accessToken = true, headers = {} } = {}) => {
-  const authHeaders = {};
-//   if (accessToken) {
-//     authHeaders.Authorization = authService.getAccessToken();
-//   }
+  const authHeaders:any = {};
+  if (accessToken) {
+    authHeaders.Authorization = authService.getAccessToken();
+  }
   return instance({
     url,
     params,
@@ -51,10 +51,10 @@ export const put = (url: string, { params = {}, body = {}, accessToken = true, h
 };
 
 export const remove = (url: string, { params = {}, accessToken = true, headers = {} } = {}) => {
-  const authHeaders = {};
-//   if (accessToken) {
-//     authHeaders.Authorization = authService.getAccessToken();
-//   }
+  const authHeaders:any = {};
+  if (accessToken) {
+    authHeaders.Authorization = authService.getAccessToken();
+  }
   return instance({
     url,
     params,

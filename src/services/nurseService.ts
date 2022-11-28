@@ -23,6 +23,6 @@ export const updateNurse = (id:string, formData:object) => {
 };
 
 export const deleteNurse = (id:string) => {
-  return http.remove('/articles/' + id);
+  return http.remove('/nurses/' + id);
 };
 

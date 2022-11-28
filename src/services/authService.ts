@@ -1,6 +1,6 @@
 export const getAccessToken = () => {
   const token = localStorage.getItem("token");
-  return token;
+  return 'Bearer '+ token;
 };
   
 export const getUserInfo = () => {

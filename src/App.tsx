@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import PrivateRoute from './PrivateRoute'
 import SignUp from './pages/SignUp';
 import NurseDetail from './pages/nurses/NurseDetail';
+import EditNurseForm from './pages/nurses/EditNurseForm';
 import CreateNurseForm from './pages/nurses/CreateNurseForm'
 import './public';
 
@@ -26,7 +27,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/nurses/:id" element={<NurseDetail/>} />
           <Route path="/nurses/create" element={<CreateNurseForm/>} />
-        `</Route>
+          <Route path="/nurses/:id/edit" element={<EditNurseForm/>} />
+        </Route>
 
         {/* <Route element={<PrivateRoute/>}>
           <Route index element={<Home />} />
