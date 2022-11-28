@@ -1,8 +1,8 @@
-import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
-import {fetchNurse, deleteNurse} from '../../services/nurseService';
 import {getUserInfo} from '../../services/authService';
+import {fetchNurse, deleteNurse} from '../../services/nurseService';
 
 function NurseDetail() {   
   let { id } = useParams(); 

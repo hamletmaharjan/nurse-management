@@ -1,6 +1,8 @@
 import {useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { toast } from 'react-toastify';
+
 import {createNurse} from '../../services/nurseService';
 
 interface Nurse { 
@@ -55,6 +57,9 @@ function CreateNurseForm() {
 
     createNurse(formData)
     .then(function (response:any) {
+      toast.success("Successfully add the Nurse", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
       navigate('/');
     })
     .catch(function (error:any) {
@@ -108,6 +113,7 @@ function CreateNurseForm() {
         </div>
         <input type="submit" style={{marginTop: 15}} className="btn btn-primary" value="Create" />
       </form>
+      
     </div>
   )
 }

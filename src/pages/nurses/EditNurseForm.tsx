@@ -2,6 +2,8 @@ import {useState, useEffect } from 'react';
 import { useReducer } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { toast } from 'react-toastify';
+
 import {updateNurse, fetchNurse} from '../../services/nurseService';
 
 interface Nurse { 
@@ -103,7 +105,9 @@ function EditNurseForm({nurse}:any) {
 
     updateNurse(id,formData)
     .then(function (response:any) {
-      console.log('res', response);
+      toast.success("Successfully updated the Nurse", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
       navigate('/');
     })
     .catch(function (error:any) {
@@ -157,6 +161,7 @@ function EditNurseForm({nurse}:any) {
         </div>
         <input type="submit" style={{marginTop: 15}} className="btn btn-primary" value="Update" />
       </form>
+     
     </div>
   )
 }

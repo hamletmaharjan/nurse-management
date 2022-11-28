@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+
+import { toast } from 'react-toastify';
 
 import {login} from '../services/userService';
 import {setAccessToken} from '../services/authService';
@@ -83,7 +84,7 @@ function Login (props:any){
       </div>
       <div className="col-sm-3">
       </div>
-      <ToastContainer />
+   
     </div>
      
 	)

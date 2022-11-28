@@ -1,6 +1,7 @@
 import {useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+
+import { toast } from 'react-toastify';
 
 import * as userService from '../services/userService';
 
@@ -86,7 +87,7 @@ function Signup() {
       </div>
       <div className="col-sm-3">
       </div>
-      <ToastContainer/>
+
     </div>
   )
 }

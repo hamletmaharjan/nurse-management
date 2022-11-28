@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
-import {Link} from 'react-router-dom';
-
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import {fetchNurses, updateRoundingManager} from '../services/nurseService';
 
@@ -82,7 +81,7 @@ function Home() {
             </tbody>
           </table>
         </div>
-        <ToastContainer />
+       
       </div>
     )
 }

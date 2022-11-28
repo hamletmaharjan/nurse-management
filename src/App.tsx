@@ -3,22 +3,22 @@ import './App.css';
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from './components/Header';
+import { ToastContainer } from 'react-toastify';
+
 import Home from './pages/Home';
 import Login from './pages/Login';
-import PrivateRoute from './PrivateRoute'
 import SignUp from './pages/SignUp';
+import Header from './components/Header';
+import PrivateRoute from './PrivateRoute';
 import NurseDetail from './pages/nurses/NurseDetail';
 import EditNurseForm from './pages/nurses/EditNurseForm';
 import CreateNurseForm from './pages/nurses/CreateNurseForm'
+
 import './public';
 
 function App() {
-  let token = localStorage.getItem('token');
   return (
     <BrowserRouter>
-      {/* {token &&
-        <Header />} */}
       <Routes>
         <Route path='/' element={<PrivateRoute>
             <Header />
@@ -38,6 +38,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
+      <ToastContainer />
   </BrowserRouter>
   );
 }
