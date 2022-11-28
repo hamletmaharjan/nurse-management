@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import {Link} from 'react-router-dom';
 
-import {fetchNurses} from '../services/nurseService';
+import { ToastContainer, toast } from 'react-toastify';
+
+import {fetchNurses, updateRoundingManager} from '../services/nurseService';
+
 interface Nurse { 
   full_name:string, 
   contact:string, 
@@ -14,6 +17,7 @@ interface Nurse {
   email: string,
   user_id?: number,
   id?:number,
+  is_rounding_manager?: boolean
 }
 
 function Home() {
@@ -24,12 +28,26 @@ function Home() {
   }
 
   useEffect(() => {
+    fetchAndSetNurses();
+  },[]);
+
+  const fetchAndSetNurses = () => {
     fetchNurses()
     .then(data=> {
         setNurses(data);
     })
-  },[]);
-    return ( 
+  }
+
+  const handleChange = (nurse:any) => {
+    updateRoundingManager(nurse.id).then(data => {
+      toast.success("Successfully set the Rounding Manager", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
+      fetchAndSetNurses();
+    })
+  }
+
+  return ( 
       <div className="container">
         <div className="row">
           <table className="table table-condensed">
@@ -42,6 +60,7 @@ function Home() {
                 <th>End Time</th>
                 <th>Working Days</th>
                 <th>Address</th>
+                <th>Rounding Manager</th>
               </tr>
             </thead>
             <tbody>
@@ -55,6 +74,7 @@ function Home() {
                     <td>{nurse.end_time || '-'}</td>
                     <td>{nurse.working_days || '-'}</td>
                     <td>{nurse.address || '-'}</td>
+                    <td><input className="form-check-input" type="checkbox" value="" readOnly={nurse.is_rounding_manager} checked={nurse.is_rounding_manager} onChange={() =>handleChange(nurse)}/></td>
                   </tr>
                 )
               })
@@ -62,6 +82,7 @@ function Home() {
             </tbody>
           </table>
         </div>
+        <ToastContainer />
       </div>
     )
 }

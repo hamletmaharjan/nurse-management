@@ -36,6 +36,19 @@ export const post = (url:string, { params = {}, body = {}, accessToken = true, h
   }).then((response) => response.data);
 };
 
+export const patch = (url: string, { params = {}, accessToken =  true, headers = {} } = {}) => {
+    const authHeaders:any = {};
+    if (accessToken) {
+      authHeaders.Authorization = authService.getAccessToken();
+    }
+    return instance({
+      url,
+      params,
+      method: 'PATCH',
+      headers: { ...authHeaders, ...headers },
+    }).then((response) => response.data);
+  };
+
 export const put = (url: string, { params = {}, body = {}, accessToken = true, headers = {} } = {}) => {
   const authHeaders:any = {};
   if (accessToken) {

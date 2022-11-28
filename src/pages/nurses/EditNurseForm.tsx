@@ -47,22 +47,23 @@ function EditNurseForm({nurse}:any) {
   useEffect(() => {
     fetchNurse(id)
     .then(data=> {
-        // setInputs(data.data);
-        dispatch(data.data);
+        setInputs(data.data);
+        // dispatch(data.data);
     })
 
     console.log('inputs', inputs)
   },[id]);
 
+  console.log('inputs',inputs);
   const handleChange = (event:any) => {
-    dispatch({field: event.target.name, value:event.target.value});
-    // const name = event.target.name;
-    // const value = event.target.value;
-    // if(name==="image") {
-    //   setImage(event.target.files[0]);
-    //   return;
-    // }
-    // setInputs(values => ({...values, [name]: value}))
+    // dispatch({field: event.target.name, value:event.target.value});
+    const name = event.target.name;
+    const value = event.target.value;
+    if(name==="image") {
+      setImage(event.target.files[0]);
+      return;
+    }
+    setInputs(values => ({...values, [name]: value}))
   }
 
 	// const handleChange = (event:any) => {
@@ -116,37 +117,37 @@ function EditNurseForm({nurse}:any) {
       <form  onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Name</label>
-          <input type="text" className="form-control" name="full_name" value={state.full_name} placeholder="Name" onChange={handleChange} required/>
+          <input type="text" className="form-control" name="full_name" value={inputs.full_name} placeholder="Name" onChange={handleChange} required/>
         </div>
       
         <div className="form-group">
           <label>Contact</label>
-          <input type="text" className="form-control" name="contact" placeholder="Email" onChange={handleChange} required/>
+          <input type="text" className="form-control" name="contact" placeholder="Email" value={inputs.contact} onChange={handleChange} required/>
         </div>
 
         <div className="form-group">
           <label>Email</label>
-          <input type="email" className="form-control" name="email" placeholder="Email" onChange={handleChange} required/>
+          <input type="email" className="form-control" name="email" placeholder="Email" value={inputs.email} onChange={handleChange} required/>
         </div>
 
         <div className="form-group">
           <label>Start Time</label>
-          <input type="text" className="form-control" name="start_time" placeholder="Start Time" onChange={handleChange} />
+          <input type="text" className="form-control" name="start_time" value={inputs.start_time} placeholder="Start Time" onChange={handleChange} />
         </div>
 
         <div className="form-group">
           <label>End Time</label>
-          <input type="text" className="form-control" name="end_time" placeholder="End Time" onChange={handleChange}/>
+          <input type="text" className="form-control" name="end_time" value={inputs.end_time} placeholder="End Time" onChange={handleChange}/>
         </div>
 
         <div className="form-group">
           <label>Working Days</label>
-          <input type="text" className="form-control" name="working_days" placeholder="Working Days" onChange={handleChange}/>
+          <input type="text" className="form-control" name="working_days" value={inputs.working_days} placeholder="Working Days" onChange={handleChange}/>
         </div>
 
         <div className="form-group">
           <label>Address</label>
-          <input type="text" className="form-control" name="address" placeholder="Address" onChange={handleChange} />
+          <input type="text" className="form-control" name="address" value={inputs.address} placeholder="Address" onChange={handleChange} />
         </div>
 
         <div className="form-group custom-file">

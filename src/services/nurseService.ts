@@ -26,3 +26,6 @@ export const deleteNurse = (id:string) => {
   return http.remove('/nurses/' + id);
 };
 
+export const updateRoundingManager = (id: string) => {
+    return http.patch('nurses/'+ id+'/set-rounding-manager');
+}

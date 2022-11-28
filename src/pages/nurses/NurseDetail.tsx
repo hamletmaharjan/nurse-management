@@ -35,12 +35,12 @@ function NurseDetail() {
     return (
       <div>
         <div className="container">
-            test
           <div className="col-sm-2">
           </div>
           <div className="col-sm-8">
+          <h1>{nurse.full_name}</h1>
             <div className="row">
-              <h1>{nurse.name}</h1>
+              
               <img src={imgLink} className="main-img" alt="nurse"/>
               <p className="fs-2 mt-4 fw-bold">{nurse.description}</p>
             </div>
