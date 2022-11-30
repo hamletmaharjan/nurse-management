@@ -29,12 +29,6 @@ function App() {
           <Route path="/nurses/:id/edit" element={<EditNurseForm/>} />
         </Route>
 
-        {/* <Route element={<PrivateRoute/>}>
-          <Route index element={<Home />} />
-          <Route path="/nurses/:id" element={<NurseDetail/>} />
-          <Route path="/nurses/create" element={<CreateNurseForm/>} />
-        </Route>
-         */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
       </Routes>
