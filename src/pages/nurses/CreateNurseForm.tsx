@@ -20,7 +20,7 @@ interface Nurse {
 
 function CreateNurseForm() {
   let navigate = useNavigate();
-  // const [name, setTitle] = useState('');
+
   // const [contact, setContact] = useState('');
 	// const [email, setEmail] = useState('');
   // const [startTime, setStartTime] = useState('');
@@ -63,7 +63,9 @@ function CreateNurseForm() {
       navigate('/');
     })
     .catch(function (error:any) {
-      console.log(error);
+      toast.error("Error while creating nurse", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
     });
 	} 
 

@@ -3,21 +3,9 @@ import { useEffect, useState } from "react";
 
 import { toast } from 'react-toastify';
 
-import {fetchNurses, updateRoundingManager} from '../services/nurseService';
+import { fetchNurses, updateRoundingManager } from '../services/nurseService';
 
-interface Nurse { 
-  full_name:string, 
-  contact:string, 
-  working_days?: string,
-  start_time?: string,
-  end_time?: string, 
-  address?: string,
-  image?: string,
-  email: string,
-  user_id?: number,
-  id?:number,
-  is_rounding_manager?: boolean
-}
+import { Nurse } from '../interfaces/nurse';
 
 function Home() {
   const [nurses,setNurses] = useState<Nurse[]>([]);
@@ -33,7 +21,9 @@ function Home() {
   const fetchAndSetNurses = () => {
     fetchNurses()
     .then(data=> {
-        setNurses(data);
+      const result = [...data];
+      result.unshift(result.splice(result.findIndex(e => e.is_rounding_manager), 1)[0])
+        setNurses(result);
     })
   }
 

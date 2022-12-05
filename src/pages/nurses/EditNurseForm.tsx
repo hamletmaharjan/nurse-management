@@ -1,5 +1,4 @@
 import {useState, useEffect } from 'react';
-import { useReducer } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
@@ -19,30 +18,11 @@ interface Nurse {
   id?:number,
 }
 
-const initialNurseState = {
-  full_name:'', 
-  contact:'', 
-  working_days: '',
-  start_time: '',
-  end_time: '', 
-  address: '',
-  email: '',
-}
-
-function reducer(state:any, {field,value}:any) {
-  return {
-    ...state,
-    [field]: value
-  }
-}
-
-function EditNurseForm({nurse}:any) {
+function EditNurseForm() {
   let navigate = useNavigate();
 
   const [image, setImage] = useState<any>(null);
   const [inputs, setInputs] = useState<Nurse>({});
-
-  const [state, dispatch] = useReducer(reducer, initialNurseState);
 
   let { id }:any = useParams(); 
 
@@ -54,7 +34,6 @@ function EditNurseForm({nurse}:any) {
   },[id]);
 
   const handleChange = (event:any) => {
-    // dispatch({field: event.target.name, value:event.target.value});
     const name = event.target.name;
     const value = event.target.value;
     if(name==="image") {
@@ -87,7 +66,9 @@ function EditNurseForm({nurse}:any) {
       navigate('/');
     })
     .catch(function (error:any) {
-      console.log(error);
+      toast.error("Error while updating nurse", {
+        position: toast.POSITION.BOTTOM_RIGHT
+      });
     });
 	} 
 
