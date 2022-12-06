@@ -12,6 +12,9 @@ export const fetchNurses = () => {
 };
 
 export const fetchNurse = (id:string) => {
+  if (!id.length) {
+    throw new Error("Id must not be empty");
+  }
   return http.get('/nurses/' + id);
 };
 

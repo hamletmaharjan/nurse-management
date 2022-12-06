@@ -80,7 +80,7 @@ function CreateNurseForm() {
       
         <div className="form-group">
           <label>Contact</label>
-          <input type="text" className="form-control" name="contact" placeholder="Email" onChange={handleChange} required/>
+          <input type="text" className="form-control" name="contact" placeholder="Contact" onChange={handleChange} required/>
         </div>
 
         <div className="form-group">
