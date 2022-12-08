@@ -7,6 +7,8 @@ import { fetchNurses, updateRoundingManager } from '../services/nurseService';
 
 import { Nurse } from '../interfaces/nurse';
 
+import {prioritizeByValue} from '../utils/array';
+
 function Home() {
   const [nurses,setNurses] = useState<Nurse[]>([]);
 
@@ -22,14 +24,15 @@ function Home() {
     fetchNurses()
     .then(data=> {
       const result = [...data];
-      result.unshift(result.splice(result.findIndex(e => e.is_rounding_manager), 1)[0])
-        setNurses(result);
+      // result.unshift(result.splice(result.findIndex(e => e.is_rounding_manager), 1)[0])
+      const sortedArray = prioritizeByValue(result, 'is_rounding_manager');
+      setNurses(sortedArray);
     })
   }
 
   const handleChange = (nurse:any) => {
     updateRoundingManager(nurse.id).then(data => {
-      toast.success("Successfully set the Rounding Manager", {
+      toast.success("Successfully updated the Rounding Manager", {
         position: toast.POSITION.BOTTOM_RIGHT
       })
       fetchAndSetNurses();
@@ -63,7 +66,7 @@ function Home() {
                     <td>{nurse.end_time || '-'}</td>
                     <td>{nurse.working_days || '-'}</td>
                     <td>{nurse.address || '-'}</td>
-                    <td><input className="form-check-input" type="checkbox" value="" readOnly={nurse.is_rounding_manager} checked={nurse.is_rounding_manager} onChange={() =>handleChange(nurse)}/></td>
+                    <td><span style={{marginLeft: 30}}> <input className="form-check-input" type="checkbox" value="" readOnly={nurse.is_rounding_manager} checked={nurse.is_rounding_manager} onChange={() =>handleChange(nurse)}/></span></td>
                   </tr>
                 )
               })

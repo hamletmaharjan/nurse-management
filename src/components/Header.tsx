@@ -28,13 +28,15 @@ function Header(props:any) {
       </ul>
       <form className="form-inline my-2 my-lg-0">
         <div>
-          <Link className="nav-link dropdown-toggle" to="/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <img src={userImg} height="30px" width="30px" alt="user"/>
-              </Link>
-              
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <button className="dropdown-item" onClick={handleLogout} >Logout</button>
+            <div className="dropdown">
+              <span className="dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src={userImg} height="30px" width="30px" alt="user"/>
+              </span>
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a className="dropdown-item" onClick={handleLogout}>Logout</a>
               </div>
+            </div>
+            
           </div>
           <Link className="btn btn-primary" to="/nurses/create">Create Nurse</Link>
       </form>
