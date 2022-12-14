@@ -3,6 +3,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
+import URLS from '../../constants/urls';
+
 import {getUserInfo} from '../../services/authService';
 import {fetchNurse, deleteNurse} from '../../services/nurseService';
 
@@ -14,13 +16,19 @@ function NurseDetail() {
 
   let user = getUserInfo();
   let editLink = '/nurses/' + nurse.id + '/edit';
-  const imgLink = nurse.image;
+
+  const imgLink = URLS.apiBaseUrl + '/'+ nurse.image;
 
   useEffect(() => {
-    fetchNurse(id|| '')
-    .then(data=> {
-        setNurse(data.data);
-    })
+    (async () => {
+      try{
+        const result = await fetchNurse(id || '');
+        setNurse(result.data);
+      }catch(error) {
+        console.log('err',error);
+      }
+    })();
+    
   },[id]);
 
   const handleDelete = (e:any)=> {

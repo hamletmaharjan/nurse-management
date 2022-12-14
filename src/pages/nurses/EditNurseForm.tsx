@@ -83,7 +83,7 @@ function EditNurseForm() {
       
         <div className="form-group">
           <label>Contact</label>
-          <input type="text" className="form-control" name="contact" placeholder="Email" value={inputs.contact} onChange={handleChange} required/>
+          <input type="text" className="form-control" name="contact" placeholder="Contact" value={inputs.contact} onChange={handleChange} required/>
         </div>
 
         <div className="form-group">
