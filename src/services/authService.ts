@@ -1,5 +1,10 @@
+import {isEmpty} from '../utils/isEmpty';
+
 export const getAccessToken = () => {
   const token = localStorage.getItem("token");
+  if(isEmpty(token)) {
+    return "";
+  }
   return 'Bearer '+ token;
 };
   
