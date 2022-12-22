@@ -9,7 +9,7 @@ module.exports = {
     transform: {
       "^.+\\.tsx?$": "ts-jest"
     },
-  
+    verbose: true,
     // Runs special logic, such as cleaning up components
     // when using React Testing Library and adds special
     // extended assertions to Jest

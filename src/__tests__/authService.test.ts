@@ -1,4 +1,4 @@
-import { getAccessToken, setAccessToken } from "../services/authService";
+import { getAccessToken, setAccessToken, getUserInfo, clearLocalAuth } from "../services/authService";
 
 jest.mock("react", () => ({
   html: jest.fn(),
@@ -25,16 +25,32 @@ const localStorageMock = (function () {
     },
 
     setAccessToken(value: string) {
-      window.localStorage.setItem("access_token", value);
+      window.localStorage.setItem("token", value);
       setAccessToken(value);
-      store["access_token"] = value;
+      store["token"] = value;
     },
 
     getAccessToken() {
-      window.localStorage.getItem("access_token");
-      store["access_token"] = getAccessToken() || "";
+      window.localStorage.getItem("token");
+      store["token"] = getAccessToken() || "";
 
-      return store["access_token"];
+      return store["token"];
+    },
+
+    getUserInfo() {
+      window.localStorage.getItem("user");
+      store["user"] = getUserInfo() || {};
+      return store["user"];
+    },
+
+    clearLocalAuth() {
+      window.localStorage.removeItem('user');
+      window.localStorage.removeItem('token');
+
+      clearLocalAuth();
+
+      delete store['user'];
+      delete store['token'];
     },
 
     removeItem(key: string) {
@@ -63,7 +79,7 @@ describe("setAccessToken", () => {
     localStorage.setAccessToken(token);
 
     //Arrange
-    expect(localStorage.getItem("access_token")).toEqual(expectedOutput);
+    expect(localStorage.getItem("token")).toEqual(expectedOutput);
   });
 
   test("should return empty string when there's no access token", () => {
@@ -72,5 +88,23 @@ describe("setAccessToken", () => {
 
     //Arrange
     expect(accessToken).toEqual("");
+  });
+
+  test("should return empty string when there's no user info", () => {
+    //Assert
+    const accessToken = localStorage.getUserInfo();
+
+    //Arrange
+    expect(accessToken).toEqual({});
+  });
+
+  test("should remove the auth info", () => {
+    localStorage.clearLocalAuth();
+
+    const accessToken = localStorage.getAccessToken();
+    const userInfo = localStorage.getUserInfo();
+
+    expect(accessToken).toEqual("");
+    expect(userInfo).toEqual({});
   });
 });
