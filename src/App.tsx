@@ -1,7 +1,10 @@
 
 import './App.css';
 
+import {  useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import { connect } from 'react-redux';
 
 import { ToastContainer } from 'react-toastify';
 
@@ -14,9 +17,27 @@ import NurseDetail from './pages/nurses/NurseDetail';
 import EditNurseForm from './pages/nurses/EditNurseForm';
 import CreateNurseForm from './pages/nurses/CreateNurseForm'
 
+import { login, logout } from './actions/authAction';
+
+import * as authService from './services/authService';
+// import * as userService from './services/userService';
+
 import './public';
 
-function App() {
+function App(props:any) {
+  useEffect(() => {
+    let token = authService.getAccessToken();
+    let userInfo = authService.getUserInfo();
+    if(token && userInfo){
+      props.login({...userInfo,token});
+    }
+    else{
+      props.logout();
+    }
+    
+  },[]);
+
+
   return (
     <BrowserRouter>
       <Routes>
@@ -37,4 +58,17 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state:any) => {
+  return {
+    authState: state
+  }
+}
+
+const mapDispatchToProps = (dispatch:any) => {
+  return {
+    login: (auth:any) => dispatch(login(auth)),
+    logout: () => dispatch(logout())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 
+import { connect } from 'react-redux';
+
 import { toast } from 'react-toastify';
+
+import { login as loginAction } from '../actions/authAction';
 
 import {login} from '../services/userService';
 import {setAccessToken} from '../services/authService';
@@ -37,6 +41,8 @@ function Login (props:any){
 				email: response.email
 			}
 			localStorage.setItem('user', JSON.stringify(userInfo));
+
+      props.loginAction(response);
 			navigate('/');
 		})
 		.catch(function (error) {
@@ -90,4 +96,17 @@ function Login (props:any){
 	)
 }
 
-export default Login;
+
+const mapStateToProps = (state:any) => {
+	return {
+	  authState: state
+	}
+}
+  
+const mapDispatchToProps = (dispatch:any) => {
+  return {
+    loginAction: (auth:any) => dispatch(loginAction(auth))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
