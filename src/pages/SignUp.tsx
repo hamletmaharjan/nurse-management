@@ -82,7 +82,7 @@ function Signup() {
             <input type="password" className="form-control" name="password" placeholder="Password" onChange={handleChange} required/>
           </div>
           <input type="submit" className="btn btn-primary" value="Signup" />
-          <input type="button" className="btn btn-secondary" value="Cancel" onClick={goToLogin} />
+          <input type="button" className="btn btn-secondary" style={{marginLeft: 15}}  value="Cancel" onClick={goToLogin} />
         </form>
       </div>
       <div className="col-sm-3">
