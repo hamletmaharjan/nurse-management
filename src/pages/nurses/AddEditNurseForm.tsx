@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
 
-import {updateNurse, fetchNurse} from '../../services/nurseService';
+import {updateNurse, createNurse, fetchNurse} from '../../services/nurseService';
 
 interface Nurse { 
   full_name?:string, 
@@ -18,7 +18,7 @@ interface Nurse {
   id?:number,
 }
 
-function EditNurseForm() {
+function AddEditNurseForm() {
   let navigate = useNavigate();
 
   const [image, setImage] = useState<any>(null);
@@ -26,7 +26,15 @@ function EditNurseForm() {
 
   let { id }:any = useParams(); 
 
+  let isEditMode = id? true: false;
+
   useEffect(() => {
+    if(!id) {
+      console.log('create mode');
+      return;
+    }else{
+      console.log('editmode')
+    }
     fetchNurse(id)
     .then(data=> {
         setInputs(data.data);
@@ -56,6 +64,24 @@ function EditNurseForm() {
     formData.append('address' , inputs.address || '');
     if(image!=null) {
       formData.append('image', image, image.name);
+    }
+
+
+    if(!isEditMode){
+      createNurse(formData)
+      .then(function (response:any) {
+        toast.success("Successfully add the Nurse", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        })
+        navigate('/');
+      })
+      .catch(function (error:any) {
+        toast.error("Error while creating nurse", {
+          position: toast.POSITION.BOTTOM_RIGHT
+        });
+      });
+
+      return;
     }
 
     updateNurse(id,formData)
@@ -116,11 +142,11 @@ function EditNurseForm() {
           <input type="file" className="custom-file-input" name="image" onChange={handleChange} />
           
         </div>
-        <input type="submit" style={{marginTop: 15}} className="btn btn-primary" value="Update" />
+        <input type="submit" style={{marginTop: 15}} className="btn btn-primary" value={isEditMode? 'Update': 'Create'} />
       </form>
      
     </div>
   )
 }
 
-export default EditNurseForm;
+export default AddEditNurseForm;

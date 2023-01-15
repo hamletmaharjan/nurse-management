@@ -14,13 +14,11 @@ import SignUp from './pages/SignUp';
 import Header from './components/Header';
 import PrivateRoute from './PrivateRoute';
 import NurseDetail from './pages/nurses/NurseDetail';
-import EditNurseForm from './pages/nurses/EditNurseForm';
-import CreateNurseForm from './pages/nurses/CreateNurseForm'
+import AddEditNurseForm from './pages/nurses/AddEditNurseForm';
 
 import { login, logout } from './actions/authAction';
 
 import * as authService from './services/authService';
-// import * as userService from './services/userService';
 
 import './public';
 
@@ -46,8 +44,8 @@ function App(props:any) {
           </PrivateRoute>}>
           <Route index element={<Home />} />
           <Route path="/nurses/:id" element={<NurseDetail/>} />
-          <Route path="/nurses/create" element={<CreateNurseForm/>} />
-          <Route path="/nurses/:id/edit" element={<EditNurseForm/>} />
+          <Route path="/nurses/create" element={<AddEditNurseForm/>} />
+          <Route path="/nurses/:id/edit" element={<AddEditNurseForm/>} />
         </Route>
 
         <Route path="/login" element={<Login />} />

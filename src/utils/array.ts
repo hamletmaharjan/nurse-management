@@ -1,5 +1,11 @@
 
-
+/**
+ * Prioritize array by property.
+ * 
+ * @param {Array} arr 
+ * @param {String} property 
+ * @returns {Array}
+ */
 export const prioritizeByValue = (arr: any, property:string) => {
     if(!arr.length) {
         return [];

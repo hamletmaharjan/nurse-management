@@ -1,3 +1,9 @@
+/**
+ * Checks if given array or object is empty
+ * 
+ * @param {Array|Object}value 
+ * @returns {Boolean}
+ */
 export const isEmpty = (
   value: Array<any> | Object | null | undefined | String
 ): boolean => {
